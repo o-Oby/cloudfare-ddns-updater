@@ -1,0 +1,6 @@
+{
+  "API_TOKEN": "your_cloudflare_api_token",
+  "ZONE_ID": "your_zone_id",
+  "DNS_RECORD_NAME": "your_subdomain.example.com",
+  "CF_API_URL": "https://api.cloudflare.com/client/v4"
+}
