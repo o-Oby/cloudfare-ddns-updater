@@ -37,19 +37,22 @@ Before using the script, you need to set up some configurations:
     cd cloudflare-ddns-updater
     ```
 
-2. **Create the script file**
+2. **Create the `config.json` file**
 
-    Create a shell script file (e.g., `update_dns.sh`) and copy the provided script into the file.
+    Create a `config.json` file with the following content and update it with your configurations:
 
-3. **Update the script with your configurations**
-
-    Edit the script to replace the placeholder values for `API_TOKEN`, `ZONE_ID`, and `DNS_RECORD_NAME` with your actual information.
-
-    ```bash
-    API_TOKEN='your_cloudflare_api_token'
-    ZONE_ID='your_zone_id'
-    DNS_RECORD_NAME='your_subdomain.example.com'
+    ```json
+    {
+      "API_TOKEN": "your_cloudflare_api_token",
+      "ZONE_ID": "your_zone_id",
+      "DNS_RECORD_NAME": "your_subdomain.example.com",
+      "CF_API_URL": "https://api.cloudflare.com/client/v4"
+    }
     ```
+
+3. **Create the script file**
+
+    Create a shell script file (e.g., `cloudfare-ddns-updater.sh`) and copy the provided script into the file.
 
 4. **Make the script executable**
 
@@ -75,28 +78,17 @@ This script does the following:
 ## Example Output
 
 ```text
-DNS record updated: {
-  "success": true,
-  "errors": [],
-  "messages": [],
-  "result": {
-	"id": "dns_record_id",
-	"type": "A",
-	"name": "ssh.example.com",
-	"content": "new_public_ip",
-	"proxiable": true,
-	"proxied": true,
-	"ttl": 120,
-	"locked": false,
-	"zone_id": "zone_id",
-	"zone_name": "example.com",
-	"created_on": "2023-01-01T00:00:00.000Z",
-	"modified_on": "2023-01-01T00:00:00.000Z",
-	"data": {}
-  }
-}
+Fetching current public IP address...
+Current public IP: 123.456.789.012
+Retrieving DNS record details from Cloudflare...
+IP address has changed from 123.456.789.000 to 123.456.789.012. Updating DNS record...
+DNS record updated successfully.
 ```
 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+### Note
+
+This project is designed to keep sensitive data in a separate configuration file (`config.json`). This helps to maintain security and manageability by avoiding hardcoded sensitive data within the script. Ensure that you handle and store your `config.json` file securely.
