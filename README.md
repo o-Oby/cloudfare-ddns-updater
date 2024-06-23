@@ -50,17 +50,25 @@ Before using the script, you need to set up some configurations:
     }
     ```
 
-3. **Create the script file**
+3. **Set Permissions on `config.json`**
+
+    Ensure that the `config.json` file has the correct read permissions:
+
+    ```bash
+    chmod 644 config.json
+    ```
+
+4. **Create the script file**
 
     Create a shell script file (e.g., `cloudfare-ddns-updater.sh`) and copy the provided script into the file.
 
-4. **Make the script executable**
+5. **Make the script executable**
 
     ```bash
     chmod +x cloudfare-ddns-updater.sh
     ```
 
-5. **Run the script**
+6. **Run the script**
 
     ```bash
     ./cloudfare-ddns-updater.sh
@@ -84,6 +92,27 @@ Retrieving DNS record details from Cloudflare...
 IP address has changed from 123.456.789.000 to 123.456.789.012. Updating DNS record...
 DNS record updated successfully.
 ```
+
+## Scheduling the Script
+
+To ensure the script runs every hour and at reboot, add the following entries to your crontab:
+
+1. **Open the Crontab File**:
+
+    ```bash
+    crontab -e
+    ```
+
+2. **Add the Reboot and Hourly Jobs**:
+
+    ```bash
+    @reboot /path/to/your/script/cloudfare-ddns-updater.sh >> /path/to/your/script/cloudfare-ddns-updater.log 2>&1
+    0 * * * * /path/to/your/script/cloudfare-ddns-updater.sh >> /path/to/your/script/cloudfare-ddns-updater.log 2>&1
+    ```
+
+    Replace `/path/to/your/script/cloudfare-ddns-updater.sh` with the actual path to your script if it is different.
+
+3. **Save and Exit**.
 
 ## License
 
